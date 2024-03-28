@@ -1,4 +1,4 @@
-import ListInterface from '../ListInterface';
+const ListInterface = require('../ListInterface');
 
 class MyArrayList extends ListInterface {
     count = 0;
@@ -8,41 +8,42 @@ class MyArrayList extends ListInterface {
     #ERRIR_NUM = -999;
 
     constructor(size) {
+        super();
         if (size) new Array(size);
-        this.objectList = new Array(#DEFAUT_CAPACITY);
+        this.superobjectList = new Array(this.#DEFAUT_CAPACITY);
     }
 
     insertElement(index, data) {
-        if (count >= DEFAUT_CAPACITY) {
+        if (this.count >= this.DEFAUT_CAPACITY) {
             console.error('Not enough memory!');
             return;
         }
         // 0 보다 작은 인덱스 불가
         // 배열 빈칸 있을 수 없다. -> 중간이 비어있고, 중간 다음에 넣으려고 할 때,
-        if (index < 0 || index > count) {
+        if (index < 0 || index > this.count) {
             console.error('Insert position error');
             return;
         }
         // 정상
-        if (index == count) {
+        if (index == this.count) {
             objectList[count++] = data;
             return;
         }
         // element 이동이 있을 때, 맨 뒤(-1)에서부터 옮겨야 한다.
-        for (let i = count - 1; i >= index; i--) {
-            this.objectList[i+1] = objectList[i];
+        for (let i = this.count - 1; i >= index; i--) {
+            this.objectList[i+1] = this.objectList[i];
         }
         this.objectList[index] = data;
-        count++;
+        this.count++;
 
     }
     
     addElement(data) {
-        if (count >= DEFAUT_CAPACITY) {
+        if (this.count >= this.DEFAUT_CAPACITY) {
             console.error('Not enough memory!');
             return;
         }
-        objectList[count++] = data;
+        this.objectList[this.count++] = data;
     } 
     
     removeElement(index) {
@@ -52,22 +53,22 @@ class MyArrayList extends ListInterface {
         }
 
         // 가능한 위치인지 확인
-        if (index < 0 || index >= count) {
+        if (index < 0 || index >= this.count) {
             console.error('Remove position error');
             return;
         }
 
         const element = this.objectList[index];
 
-        for (let i = index; i < count - 1; i++) {
+        for (let i = index; i < this.count - 1; i++) {
             this.objectList[i] = this.objectList[i + 1];
         }
-        count--;
+        this.count--;
         return element;
     };
 
     getElement (index) {
-        return this.objectList[i];
+        return this.objectList[index];
     };
 
     getSize() {
@@ -82,19 +83,19 @@ class MyArrayList extends ListInterface {
     };
 
     removeAll() {
-        this.objectList = new Array(#DEFAUT_CAPACITY);
+        this.objectList = new Array(this.#DEFAUT_CAPACITY);
     };
 
     printAll() {
-        if (count === 0) {
+        if (this.count === 0) {
             console.error('Array is Empty!');
             return;
         }
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < this.count; i++) {
             console.log(this.objectList[i]);
         }
     }
 
 }
 
-export default MyArrayList;
+module.exports = MyArrayList;

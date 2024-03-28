@@ -1,4 +1,3 @@
-// TODO: 클래스가 더 적합..
 class ListInterface {
     insertElement(index, data) {}
     addElement(data) {} 
@@ -10,4 +9,4 @@ class ListInterface {
     printAll() {}
 };
 
-export default ListInterface;
+module.exports = ListInterface;

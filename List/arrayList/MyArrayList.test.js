@@ -1,4 +1,4 @@
-import MyArrayList from './';
+const MyArrayList = require('./MyArrayList');
 
 function main() {
 
@@ -18,7 +18,7 @@ function main() {
     const array2 = new MyArrayList();
     array2.addElement(10);
     array2.printAll();
-    console.log(("===============");
+    console.log("===============");
     array2.removeElement(1);
     array2.printAll();
     
