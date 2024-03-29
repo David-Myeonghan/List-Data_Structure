@@ -1,12 +1,16 @@
 const ListInterface = require('../ListInterface');
 
 class MyArrayList extends ListInterface {
+    // 클래스 내부의 속성(프로퍼티) 또는 메소드 참조시 'this' 키워드 사용.
+    // this는 현재 객체의 인스턴스 가리키며, 클래스 내부에서 정의된 속성이나 메서드 접근 가능하게 함.
     count = 0;
     objectList = [];
 
     #DEFAULT_CAPACITY = 10;
     #ERRIR_NUM = -999;
 
+    // Only one constructor in JS.
+    // Overloading not allowed in JS.
     constructor(size) {
         super();
         if (size) {
@@ -17,7 +21,7 @@ class MyArrayList extends ListInterface {
     }
 
     insertElement(index, data) {
-        if (this.count >= this.DEFAULT_CAPACITY) {
+        if (this.count >= this.#DEFAULT_CAPACITY) {
             console.error('Not enough memory!');
             return;
         }
@@ -29,7 +33,7 @@ class MyArrayList extends ListInterface {
         }
         // 정상
         if (index == this.count) {
-            this.objectList[count++] = data;
+            this.objectList[this.count++] = data;
             return;
         }
         // element 이동이 있을 때, 맨 뒤(-1)에서부터 옮겨야 한다.
@@ -79,14 +83,14 @@ class MyArrayList extends ListInterface {
     };
 
     isEmpty() {
-        if (this.count === 0) {
-            return true;
-        }
-        return false;
+        return this.count === 0;
     };
 
     removeAll() {
         this.objectList = new Array(this.#DEFAULT_CAPACITY);
+        // better in memeory optimization:
+        // this.count = 0;
+        // but values still remain in the array.
     };
 
     printAll() {
