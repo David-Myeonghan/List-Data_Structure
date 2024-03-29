@@ -4,17 +4,20 @@ class MyArrayList extends ListInterface {
     count = 0;
     objectList = [];
 
-    #DEFAUT_CAPACITY = 10;
+    #DEFAULT_CAPACITY = 10;
     #ERRIR_NUM = -999;
 
     constructor(size) {
         super();
-        if (size) new Array(size);
-        this.superobjectList = new Array(this.#DEFAUT_CAPACITY);
+        if (size) {
+            this.objectList = new Array(size);
+            return;
+        }
+        this.superobjectList = new Array(this.#DEFAULT_CAPACITY);
     }
 
     insertElement(index, data) {
-        if (this.count >= this.DEFAUT_CAPACITY) {
+        if (this.count >= this.DEFAULT_CAPACITY) {
             console.error('Not enough memory!');
             return;
         }
@@ -26,7 +29,7 @@ class MyArrayList extends ListInterface {
         }
         // 정상
         if (index == this.count) {
-            objectList[count++] = data;
+            this.objectList[count++] = data;
             return;
         }
         // element 이동이 있을 때, 맨 뒤(-1)에서부터 옮겨야 한다.
@@ -39,7 +42,7 @@ class MyArrayList extends ListInterface {
     }
     
     addElement(data) {
-        if (this.count >= this.DEFAUT_CAPACITY) {
+        if (this.count >= this.DEFAULT_CAPACITY) {
             console.error('Not enough memory!');
             return;
         }
@@ -83,7 +86,7 @@ class MyArrayList extends ListInterface {
     };
 
     removeAll() {
-        this.objectList = new Array(this.#DEFAUT_CAPACITY);
+        this.objectList = new Array(this.#DEFAULT_CAPACITY);
     };
 
     printAll() {
