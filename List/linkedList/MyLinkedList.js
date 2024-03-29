@@ -1,5 +1,5 @@
 const ListInterface = require('../ListInterface');
-const ListNode = require('./listNode');
+const ListNode = require('./ListNode');
 
 // Single Linked List
 class MyLinkedList extends ListInterface {
