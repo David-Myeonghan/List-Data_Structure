@@ -1,7 +1,7 @@
 const MyLinkedList = require('./MyLinkedList');
 
 function main() {
-    const linkedList = new MyLinkedList();
+    const list = new MyLinkedList();
 
     list.addElement("A");
     list.addElement("B");
@@ -19,17 +19,17 @@ function main() {
 
     list.insertElement(0, "A-1");
     list.printAll();
-    System.out.println(list.getSize());
+    console.log(list.getSize());
 
     list.removeElement(0);
     list.printAll();
-    System.out.println(list.getSize());
+    console.log(list.getSize());
 
     list.removeAll();
     list.printAll();
     list.addElement("A");
     list.printAll();
-    System.out.println(list.getElement(0));
+    console.log(list.getElement(0));
     list.removeElement(0);
 }
 

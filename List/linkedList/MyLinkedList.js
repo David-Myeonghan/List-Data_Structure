@@ -10,23 +10,24 @@ class MyLinkedList extends ListInterface {
     count;
 
     constructor() {
+        super();
         this.#head = null;
-        count = 0;
+        this.count = 0;
     }
 
     insertElement(index, data) {
         // let i;
-        const tempNode = head;
+        const tempNode = this.#head;
         const newNode = new ListNode(data);
 
         // insert하기 적절한 위치인가
-        if (index < 0 || index > count) {
+        if (index < 0 || index > this.count) {
             console.error(`index error. The number of element in this list is ${this.count}.`);
             return;
         }
         // 첫번째 들어갈 때
         if (index === 0) {
-            newNode.next = head;
+            newNode.setNext(this.#head);
             this.#head = newNode;
         } 
         // 중간에 들어갈 때
@@ -34,20 +35,20 @@ class MyLinkedList extends ListInterface {
             let previousNode = null;
             for (let i = 0; i < index; i++) {
                 previousNode = tempNode;
-                tempNode = tempNode.next;
+                tempNode = tempNode.getNext();
             }
             // 새로운 노드에 먼저 이전 노드가 가리키던 다음 노드를 저장해야한다. <- 안그럼 끊어짐.
             // 그리고 새로운 노드를 이전노드의 다음걸로 지정한다.
-            newNode.next = previousNode.next;
-            previousNode.next = newNode;
+            newNode.setNext(previousNode.getNext());
+            previousNode.setNext(newNode);
         }
-        count++;
+        this.count++;
         return;
     };
     
     addElement(data) {
         // data를 가진 listNode가 있어야 한다.
-        const newNode;
+        let newNode;
 
         // 맨 앞에 위치로 들어갈 경우
         if (this.#head === null) {
@@ -59,43 +60,43 @@ class MyLinkedList extends ListInterface {
             newNode = new ListNode(data);
             let temp = this.#head;
 
-            while(temp.next !== null) {
-                temp = temp.next;
+            while(temp.getNext() !== null) {
+                temp = temp.getNext();
             }
-            temp.next = newNode;
+            temp.setNext(newNode);
         }
-        count++;
+        this.count++;
 
     };
 
     removeElement(index) {
         // let i;
-        let tempNode = head; // 삭제되는 요소. GC에 의해 해제될 것.
+        let tempNode = this.#head; // 삭제되는 요소. GC에 의해 해제될 것.
 
-        if (position < 0 || position >= count) {
+        if (index < 0 || index >= this.count) {
             console.error(`index error. The number of element in this array is ${this.count}.`)
             return null;
         }
         if (index === 0) {
-            head = tempNode.next;
+            this.#head = tempNode.getNext();
         }
         // 중간 위치일 때,
         else {
            let previousNode = null;
            for (let i = 0; i < index; i++) {
             previousNode = tempNode;
-            tempNode = tempNode.next;
+            tempNode = tempNode.getNext();
            } 
-           previousNode.next = tempNode.next;
+           previousNode.setNext(tempNode.next);
         }
-        count--;
+        this.count--;
         return tempNode.getData();
 
     };
     
     getElement (index) {
-        let resultElement = head;
-        if (index >= count) {
+        let resultElement = this.#head;
+        if (index >= this.count) {
             console.error(`index error. The number of element in this array is ${this.count}.`);
             return;
         }
@@ -103,7 +104,7 @@ class MyLinkedList extends ListInterface {
             return this.#head.getData();
         }
         for (let i = 0; i < index; i++) {
-            resultElement = resultElement.next;
+            resultElement = resultElement.getNext();
         }
         return resultElement.getData();
 
@@ -120,7 +121,7 @@ class MyLinkedList extends ListInterface {
             return this.#head;
         }
         for (let i = 0; i < index; i++) {
-            resultElement = resultElement.next;
+            resultElement = resultElement.getNext();
         }
         return resultElement;
     };
@@ -135,17 +136,17 @@ class MyLinkedList extends ListInterface {
     
     removeAll() {
         this.#head = null;
-        count = 0;
+        this.count = 0;
     };
     
     printAll() {
-        if (count === 0) {
+        if (this.count === 0) {
             console.log('Vacant List.');
         }
-        let tempNode = head;
-        while(temp !== null) {
+        let tempNode = this.#head;
+        while(tempNode !== null) {
             console.log(tempNode.getData());
-            tempNode = tempNode.next;
+            tempNode = tempNode.getNext()
             if (tempNode !== null) {
                 console.log('->');
             }
@@ -153,18 +154,20 @@ class MyLinkedList extends ListInterface {
     };
 
     reverseList () {
-        if (head === null) return;
+        if (this.#head === null) return;
 
         let currentNode = null;
         let previousNode = null;
-        let nextNode = head;
+        let nextNode = this.#head;
 
         while(nextNode !== null) {
             previousNode = currentNode;
             currentNode = nextNode;
-            nextNode = nextNode.next;
-            currentNode.next = previousNode;
+            nextNode = nextNode.getNext();
+            currentNode.setNext(previousNode);
         }
-        head = currentNode;
+        this.#head = currentNode;
     }
 };
+
+module.exports = MyLinkedList;
