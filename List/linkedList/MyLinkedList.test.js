@@ -7,7 +7,7 @@ function main() {
     list.addElement("B");
     list.addElement("C");
 
-    //list.removeElement(3);
+    list.removeElement(3);
     list.printAll();
     list.reverseList();
     list.printAll();
