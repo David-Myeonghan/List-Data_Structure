@@ -21,6 +21,14 @@ class ListNode {
         this.#data = data;
         this.#next = link;
     }
+
+    // getter/setter required for accessing private field.
+    setNext(next) {
+        this.#next = next;
+    }
+    getNext() {
+        return this.#next;
+    }
     
 	getData(){ 
 		return this.#data;
